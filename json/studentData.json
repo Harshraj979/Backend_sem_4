@@ -1,0 +1,32 @@
+{
+  "students": [
+    {
+      "ID": 101,
+      "Name": "Harsh Raj",
+      "Course": "B.Tech Computer Science",
+      "Year": "3rd Year",
+      "CGPA": 8.5
+    },
+    {
+      "ID": 102,
+      "Name": "Priya Sharma",
+      "Course": "BCA",
+      "Year": "2nd Year",
+      "CGPA": 8.9
+    },
+    {
+      "ID": 103,
+      "Name": "Aman Verma",
+      "Course": "B.Sc IT",
+      "Year": "1st Year",
+      "CGPA": 7.8
+    },
+    {
+      "ID": 104,
+      "Name": "Neha Singh",
+      "Course": "MCA",
+      "Year": "1st Year",
+      "CGPA": 9.1
+    }
+  ]
+}

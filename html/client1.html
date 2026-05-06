@@ -1,0 +1,23 @@
+<!-- using server.io send a message "Hello client" from server to client after every 2 seconds. at the 10th second ,the server stops sending message to the client.the messages must print on browser page -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+        socket.on('message', (data) => {
+            document.write(`Received message: ${data}<br>`);
+        });
+    </script>
+</body>
+</html>

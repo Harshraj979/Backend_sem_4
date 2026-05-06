@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product CRUD</title>
+
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-full: 999px;
+
+      --color-bg: #f7f6f2;
+      --color-surface: #ffffff;
+      --color-surface-2: #f3f0ec;
+      --color-border: #d4d1ca;
+      --color-text: #28251d;
+      --color-text-muted: #6f6c66;
+      --color-primary: #01696f;
+      --color-primary-hover: #0c4e54;
+      --color-danger: #a13544;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #171614;
+      --color-surface: #1c1b19;
+      --color-surface-2: #23211f;
+      --color-border: #393836;
+      --color-text: #ece8e1;
+      --color-text-muted: #a6a29a;
+      --color-primary: #4f98a3;
+      --color-primary-hover: #6eb5bf;
+      --color-danger: #dd6974;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      font-size: var(--text-base);
+      background: linear-gradient(180deg, var(--color-bg), var(--color-surface-2));
+      color: var(--color-text);
+      line-height: 1.6;
+      padding: var(--space-6);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+    }
+
+    h1 {
+      font-size: var(--text-xl);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      margin-top: 0.25rem;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .card, .status, .results {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card h2, .results h3 {
+      margin-bottom: var(--space-2);
+      font-size: var(--text-lg);
+    }
+
+    .card p {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-5);
+    }
+
+    form {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .field {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      outline: none;
+    }
+
+    .btn {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--color-surface-2);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-danger {
+      background: var(--color-danger);
+      color: white;
+    }
+
+    .status, .results {
+      margin-top: var(--space-8);
+    }
+
+    .product-list {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      padding: var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-2);
+    }
+
+    .product-meta,
+    .empty {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">P</div>
+        <div>
+          <h1>Product CRUD Dashboard</h1>
+          <div class="subtitle">Manage products with the same backend routes</div>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button">Toggle Theme</button>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Add Product</h2>
+        <p>Create a new product entry.</p>
+        <form action="/add" method="POST">
+          <div class="field">
+            <label for="add-name">Product Name</label>
+            <input id="add-name" type="text" name="name" placeholder="Enter product name" required />
+          </div>
+          <div class="field">
+            <label for="add-price">Price</label>
+            <input id="add-price" type="number" name="price" placeholder="Enter price" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Add Product</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Show Products</h2>
+        <p>Fetch all products from the database.</p>
+        <form id="showForm">
+          <button class="btn btn-secondary" type="submit">Show Products</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Update Product</h2>
+        <p>Update product name and price using its MongoDB ID.</p>
+        <form action="/update" method="POST">
+          <div class="field">
+            <label for="update-id">Product ID</label>
+            <input id="update-id" type="text" name="id" placeholder="Enter product ID" required />
+          </div>
+          <div class="field">
+            <label for="update-name">New Name</label>
+            <input id="update-name" type="text" name="name" placeholder="Enter new name" required />
+          </div>
+          <div class="field">
+            <label for="update-price">New Price</label>
+            <input id="update-price" type="number" name="price" placeholder="Enter new price" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Update Product</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Delete Product</h2>
+        <p>Remove a product permanently using its ID.</p>
+        <form action="/delete" method="POST">
+          <div class="field">
+            <label for="delete-id">Product ID</label>
+            <input id="delete-id" type="text" name="id" placeholder="Enter product ID" required />
+          </div>
+          <button class="btn btn-danger" type="submit">Delete Product</button>
+        </form>
+      </section>
+    </main>
+
+    <div class="status" id="statusBox">Ready to manage products.</div>
+
+    <section class="results">
+      <h3>Products</h3>
+      <div id="productList" class="product-list">
+        <div class="empty">No products loaded yet.</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    let dark = false;
+
+    themeToggle.addEventListener('click', () => {
+      dark = !dark;
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    });
+
+    const showForm = document.getElementById('showForm');
+    const productList = document.getElementById('productList');
+    const statusBox = document.getElementById('statusBox');
+
+    showForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusBox.textContent = 'Loading products...';
+
+      try {
+        const res = await fetch('/show');
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          productList.innerHTML = '<div class="empty">No products found.</div>';
+          statusBox.textContent = 'No products available.';
+          return;
+        }
+
+        productList.innerHTML = data.map(product => `
+          <div class="product-item">
+            <div>
+              <strong>${product.name || 'Unnamed Product'}</strong>
+              <div class="product-meta">ID: ${product._id}</div>
+            </div>
+            <div><strong>₹${product.price ?? 0}</strong></div>
+          </div>
+        `).join('');
+
+        statusBox.textContent = `${data.length} product(s) loaded successfully.`;
+      } catch (error) {
+        productList.innerHTML = '<div class="empty">Failed to load products.</div>';
+        statusBox.textContent = 'Error fetching products.';
+      }
+    });
+  </script>
+</body>
+</html>

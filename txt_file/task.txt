@@ -1,0 +1,6 @@
+count words in file
+ on text blodk it should append in text file
+
+ and many more
+ 
+//username and email ,fill  detail click submit then stored in file in data.json then compress the file use zlib

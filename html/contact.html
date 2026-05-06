@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Tahoma, sans-serif;
+        background-color: #fff5e6;
+        margin: 0;
+        text-align: center;
+      }
+
+      header {
+        background-color: #e67e22;
+        color: white;
+        padding: 20px;
+      }
+
+      nav {
+        background-color: #f39c12;
+        padding: 10px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: white;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        color: black;
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      input,
+      textarea {
+        width: 250px;
+        padding: 8px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 8px 20px;
+        background-color: #e67e22;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #d35400;
+      }
+
+      footer {
+        background-color: #e67e22;
+        color: white;
+        padding: 10px;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Us</h1>
+    </header>
+
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="content">
+      <h2>Get in Touch</h2>
+
+      <form action="/submit" method="post">
+      name: <input type="text" name="name" placeholder="Enter your name" required><br>
+      email: <input type="email" name="email" placeholder="Enter your email" required><br>
+      <input type="submit" value="submit">
+      </form>
+    </div>
+
+    <footer>© 2026 My Website</footer>
+  </body>
+</html>
