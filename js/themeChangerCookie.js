@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.send(`
         <html>
         <head>
-            <link rel="stylesheet" href="/css/theme.css">
+        <link rel="stylesheet" href="/css/theme.css">
         </head>
         <body class="${theme}">
             <h1>Theme Switcher</h1>
