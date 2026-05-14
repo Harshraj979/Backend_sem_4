@@ -58,10 +58,6 @@ app.get("/", (req, res) => {
 
 io.on("connection",function(socket){
     console.log("client connected");
-    let interval=setInterval(()=>{
-        socket.emit("message","wow server");
-    },3000);
-
     setTimeout(()=>{
         clearInterval(interval);
         console.log("stopped");
