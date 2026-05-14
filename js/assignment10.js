@@ -35,7 +35,6 @@ app.post('/reverse',(req,res)=>{
                 <p>${reversed}</p>
                 <a href="/">Go Back</a>
             `)
-
         })
     })
 })

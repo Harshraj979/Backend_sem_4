@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let readStream = fs.createReadStream('log.txt', 'utf-8',start=0,end=1);
+let readStream = fs.createReadStream('/txt_file/log.txt', 'utf-8',start=0,end=1);
 readStream.on('data', (chunk) => {
     console.log(chunk);
     console.log(chunk.length);

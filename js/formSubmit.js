@@ -11,7 +11,7 @@ app.get('/',(req,res)=>{
 
 app.post('/submit',(req,res)=>{
   const {name,email}=req.body;
-  const newData={name,ema  il};
+  const newData={name,email};
   fs.readFile('./json/form.json','utf-8',(err,data)=>{
     let users=[];
     if(!err){
