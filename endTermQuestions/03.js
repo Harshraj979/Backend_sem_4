@@ -55,7 +55,6 @@ app.get('/home', (req, res) => {
     res.send(`
         <html>
         <body>
-
             <form method="POST" action="/append">
 
                 <input type="text" name="name" placeholder="Enter something">

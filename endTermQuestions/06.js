@@ -28,7 +28,7 @@ io.on('connection',(socket)=>{
 })
 server.listen(3000);
 */
-/*
+
 app.get("/",(req,res)=>{
     res.send(
     `
@@ -50,7 +50,7 @@ app.get("/",(req,res)=>{
             document.getElementById("messages").appendChild(li);
         })
     </script>
-    `)
+    `) 
 })
 io.on("connection",(socket)=>{
     socket.on("chat",(msgs)=>{
@@ -58,7 +58,7 @@ io.on("connection",(socket)=>{
     })
 })
 server.listen(3000);
-*/
+
 /*
 app.get("/",(req,res)=>{
     res.send(`

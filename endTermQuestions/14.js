@@ -41,6 +41,7 @@ client.query(insertQuery,(err,result)=>{
 })
 
 const selectQuery = `SELECT * FROM Orders`;
+
 client.query(selectQuery, (err, result) => {
     if (err) {
         console.log("Select Error");
